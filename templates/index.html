@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang=”en”>
+
+<head>
+  <title>Test App</title>
+  <style>
+    body {
+      margin: auto;
+      width: 640px;
+      padding: 50px;
+      font-family: 'Avenir', sans-serif;
+      color: #33475b;
+    }
+
+    img {
+      display: block;
+      width: 60%;
+      margin-left: auto;
+      margin-right: auto;
+    }
+  </style>
+</head>
+
+<body>
+  <h1>Hello World</h1>
+  <p id="content"></p>
+  <button onclick="get_header()"> click to get header</button>
+  <script>
+    function get_header() {
+      let setparagraph = document.getElementById("content");
+      const header = fetch("/get-header").then(response => {
+          if (!response.ok) {
+            throw new Error('Network response was not ok');
+            }
+          return response.json();
+          })
+        .then(data => {
+          setparagraph.textContent = data['host']
+          console.log(data['host']);
+          })
+        .catch(error => {
+          console.error('There was a problem with the fetch operation:', error);
+        });
+
+
+
+    }
+  </script>
+</body>
+
+</html>
